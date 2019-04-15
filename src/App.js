@@ -1,28 +1,37 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+import Wizard, { WizardPage } from './Wizard'
 
+const Page = ({ children, ...props }) => (
+  <div>{console.log(props)}{children}</div>
+)
 class App extends Component {
-  render() {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      allProps: ''
+    }
+  }
+
+  render () {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <Wizard innerProps={(props) => { this.setState({ allProps: props }) }}>
+          <WizardPage>
+            <Page>1 this is <b>page one</b></Page>
+          </WizardPage>
+
+          <WizardPage>
+            <Page>2</Page>
+          </WizardPage>
+          <WizardPage>
+            <Page>3</Page>
+          </WizardPage>
+        </Wizard>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
